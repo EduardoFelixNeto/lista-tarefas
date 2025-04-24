@@ -1,0 +1,74 @@
+<div class="container">
+
+  <h2>Lista de Tarefas</h2>
+
+
+  <div class="input-group mb-3">
+
+    <input type="text" class="form-control" placeholder="Nova tarefa"
+
+           [(ngModel)]="novaTarefa" (keyup.enter)="adicionarTarefa()">
+
+    <div class="input-group-append">
+
+      <button class="btn btn-primary" (click)="adicionarTarefa()">Adicionar</button>
+
+    </div>
+
+  </div>
+
+
+  <div *ngIf="tarefas.length === 0">
+
+    <p>Nenhuma tarefa cadastrada.</p>
+
+  </div>
+
+
+  <ul class="list-group" *ngIf="tarefas.length > 0">
+
+    <li *ngFor="let tarefa of tarefas" class="list-group-item"
+
+        [ngClass]="{'list-group-item-success': tarefa.concluida}">
+
+      <div class="d-flex justify-content-between align-items-center">
+
+        <div>
+
+          <input type="checkbox" [checked]="tarefa.concluida"
+
+                 (change)="alternarStatus(tarefa.id)" class="mr-2">
+
+          <span [ngClass]="{'text-decoration-line-through': tarefa.concluida}">
+
+{{ tarefa.descricao }}
+
+</span>
+
+        </div>
+
+        <button class="btn btn-sm btn-danger" (click)="removerTarefa(tarefa.id)">
+
+          Remover
+
+        </button>
+
+      </div>
+
+    </li>
+
+  </ul>
+
+
+  <div class="mt-3" *ngIf="tarefas.length > 0">
+    <p>Total de tarefas: {{ tarefas.length }}</p>
+    <p>
+      Tarefas concluídas: {{ tarefasConcluidas ? tarefasConcluidas : 0 }}
+    </p>
+    <p>
+      Tarefas pendentes: {{ tarefasPendentes ? tarefasPendentes : 0 }}
+    </p>
+  </div>
+
+
+</div>
